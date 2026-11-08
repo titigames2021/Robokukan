@@ -3,11 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public float moveSpeed;
-    private Vector2 _moveDirection;
+   private Rigidbody2D rb;
+   private Vector2 _moveDirection;
+   [SerializeField] float moveSpeed;
+   [SerializeField] InputActionReference move;
+   
 
-    public InputActionReference move;
 
 
 
@@ -15,17 +16,29 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         
+        rb = gameObject.GetComponent<Rigidbody2D>();
+
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region Movement
         _moveDirection = move.action.ReadValue<Vector2>();// Read Input 
         Vector2 vector_input = new Vector2(_moveDirection.x , _moveDirection.y );// Store Input in a Vector 
         transform.Translate(vector_input * moveSpeed * Time.deltaTime);//Move the object based on the input direction
+        #endregion
+
+       
 
     }
 
-   
+    private void LateUpdate()
+    {
+      
+    }
+
+
 
 }
